@@ -1,0 +1,17 @@
+env:
+  - name: POSTGRES_DB
+    value: phoenix_production   # or whatever DB name you use
+  - name: POSTGRES_HOST
+    value: phoenix-db-rw.database.svc.cluster.local
+  - name: POSTGRES_PORT
+    value: "5432"
+  - name: POSTGRES_USER
+    valueFrom:
+      secretKeyRef:
+        name: phoenix-user
+        key: username
+  - name: POSTGRES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: phoenix-user
+        key: password
