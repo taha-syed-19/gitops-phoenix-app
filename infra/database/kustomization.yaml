@@ -1,16 +1,6 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-metadata:
-  name: database
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: ./infra/database
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  targetNamespace: database
-  timeout: 2m
-  wait: true
-
+resources:
+  - postgres-cluster.yaml
+  - postgres-superuser-secret.yaml
+  - phoenix-user-secret.yaml
