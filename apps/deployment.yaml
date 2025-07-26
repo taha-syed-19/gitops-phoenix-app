@@ -1,6 +1,6 @@
 env:
   - name: POSTGRES_DB
-    value: phoenix_production   # or whatever DB name you use
+    value: phoenixdb    # or whatever DB name you use
   - name: POSTGRES_HOST
     value: phoenix-db-rw.database.svc.cluster.local
   - name: POSTGRES_PORT
@@ -8,10 +8,10 @@ env:
   - name: POSTGRES_USER
     valueFrom:
       secretKeyRef:
-        name: phoenix-user
+        name: phoenix-user-secret
         key: username
   - name: POSTGRES_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: phoenix-user
+        name: phoenix-user-secret
         key: password
