@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phoenix
+  namespace: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phoenix
+  template:
+    metadata:
+      labels:
+        app: phoenix
+    spec:
+      containers:
+        - name: phoenix
+          image: ghcr.io/example/phoenix-app:latest  # Replace with actual image name
+          ports:
+            - containerPort: 4000
+          env:
+            - name: POSTGRES_DB
+              value: phoenix_production
+            - name: POSTGRES_HOST
+              value: phoenix-db-rw.database.svc.cluster.local
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: phoenix-user-secret
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: phoenix-user-secret
+                  key: password
+
